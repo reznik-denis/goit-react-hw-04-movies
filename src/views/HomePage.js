@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { fetchTrendingsMovies } from "../services/movie-api";
 import s from "./MoviesList.module.css";
 
 export default function HomePage() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/trending/all/day?api_key=129416bf942708f7409389a07be62439`).then(res => res.json()).then(movies => { setMovies(movies.results); console.log(movies) })
+        fetchTrendingsMovies().then(movies => setMovies(movies.results));
     }, [])
 
     return (<>

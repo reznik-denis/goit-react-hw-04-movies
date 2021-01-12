@@ -6,6 +6,7 @@ import Movies from "./views/Movies";
 import Container from "./Container/Container";
 import Navigation from "./Navigation/Navigation";
 import NotFoundViews from "./views/NotFoundViews";
+import MovieDetailsPage from "./views/MovieDetailsPage";
 
 import { ToastContainer } from 'react-toastify';
 // import { toast } from 'react-toastify';
@@ -29,8 +30,11 @@ function App() {
         <Route path="/" exact>
           <HomePage/>
         </Route>
-        <Route path="/movies">
+        <Route path="/movies" exact>
           <Movies/>
+        </Route>
+        <Route path='/movies/:movieId'>
+          <MovieDetailsPage/>
         </Route>
         <Route>
           <NotFoundViews/>

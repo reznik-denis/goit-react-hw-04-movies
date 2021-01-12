@@ -9,7 +9,7 @@ export default function ImageGallery({ movies }) {
 
     return (<ul className={s.movieItem}>
         {movies && movies.map(({ poster_path, title, name, id }, index) => (<li key={index}>
-            <Link to={`/${url}/${id}`}>
+            <Link to={`${url}/${id}`}>
                 <MoviesListItem userMovieImageURL={poster_path} altImage={title ?? name}/>
             </Link>
             </li>

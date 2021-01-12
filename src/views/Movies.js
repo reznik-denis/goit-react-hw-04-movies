@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import s from './Movies.module.css';
 import MoviesList from "./MoviesList";
+import { fetchSearchMovies } from "../services/movie-api";
+
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,8 +15,8 @@ export default function Searchbar () {
         setSearch(event.currentTarget.value.toLowerCase());
     };
 
-    const fetchMovies = search => {
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=129416bf942708f7409389a07be62439&language=en-US&query=${search}&page=1&include_adult=false`).then(res => res.json()).then(movies => { setMovies(movies.results); console.log(movies.results) })
+    const fetchMovies = (search, pageFetch=1) => {
+        fetchSearchMovies(search, pageFetch).then(movies => setMovies(movies.results))
     }
     const handleSubmit = event => {
         
@@ -32,7 +34,7 @@ export default function Searchbar () {
     };
 
     return (<div>
-    <div className={s.Searchbar}>
+            <div className={s.Searchbar}>
                 <form className={s.SearchForm} onSubmit={handleSubmit}>
                     <button type="submit" className={s.SearchFormButton}>
                         <span className={s.SearchFormButtonLabel}>Search</span>
@@ -48,10 +50,10 @@ export default function Searchbar () {
                         placeholder="Search movies"
                     />
                 </form>
-    </div>
-        <div>
-            <MoviesList movies={movies}/>
-        </div>
+            </div>
+            <div>
+                <MoviesList movies={movies}/>
+            </div>
         </div>
             );
 };
