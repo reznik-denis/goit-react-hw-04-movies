@@ -1,0 +1,24 @@
+.flex {
+  display: flex;
+}
+
+.imgStyle {
+  margin-top: 30px;
+  margin-left: 15px;
+  margin-right: 30px;
+  border-radius: 15px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 42px;
+  margin-top: 50px;
+}
+
+.listGenres {
+  display: flex;
+}
+
+.listItem {
+  margin-right: 20px;
+}
