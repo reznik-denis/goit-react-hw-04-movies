@@ -16,3 +16,7 @@ export function fetchMoviesDetailsViews(movieId) {
 export function fetchMoviesCreditsViews(movieId) {
     return fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${KEY}&language=en-US`).then(res => res.json());
 }
+
+export function fetchMoviesRewievsViews(movieId) {
+    return fetch(`${BASE_URL}/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`).then(res => res.json());
+}

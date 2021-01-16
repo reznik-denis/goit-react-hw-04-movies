@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import s from './Movies.module.css';
-import MoviesList from "./MoviesList";
-import { fetchSearchMovies } from "../services/movie-api";
+import MoviesList from "../MoviesList/MoviesList";
+import { fetchSearchMovies } from "../../services/movie-api";
 
 
 import { toast } from 'react-toastify';
@@ -22,7 +22,7 @@ export default function Searchbar () {
         
         event.preventDefault();
         if (search.trim() === '') {
-            toast.error("Введите имя картинки!");
+            toast.error("You don't load name films");
             return
         }
         fetchMovies(search);

@@ -1,32 +1,22 @@
 import './App.css';
-// import { useState } from 'react';
+import { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
-import HomePage from "./views/HomePage";
-import Movies from "./views/Movies";
 import Container from "./Container/Container";
 import Navigation from "./Navigation/Navigation";
-import NotFoundViews from "./views/NotFoundViews";
-import MovieDetailsPage from "./views/MovieDetailsPage";
-
 import { ToastContainer } from 'react-toastify';
-// import { toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import Loader from "./services/Loader/loader";
+
+const HomePage = lazy(() => import('./views/HomePage/HomePage.js' /* webpackChunkName: "home-page" */));
+const Movies = lazy(() => import('./views/Movies/Movies.js' /* webpackChunkName: "movies" */));
+const NotFoundViews = lazy(() => import('./views/NotFoundViews.js' /* webpackChunkName: "not-found" */));
+const MovieDetailsPage = lazy(() => import('./views/MovieDetailsPage/MovieDetailsPage.js' /* webpackChunkName: "movie-details-page" */));
 
 function App() {
-  // const [search, setSearch] = useState(null);
-
-  // const formSubmitHendler = (userSearch) => {
-  //   if (userSearch !== search) {
-  //     // setMovies([]);
-  //     setSearch(userSearch);
-  //     // setPageFetch(1);
-  //   } else { toast.error("Вы уже ввели это имя!"); };
-  // };
-
   return (
     <Container>
       <Navigation />
-      <Switch>
+      <Suspense fallback={<Loader />}>
+        <Switch>
         <Route path="/" exact>
           <HomePage/>
         </Route>
@@ -39,12 +29,14 @@ function App() {
         <Route>
           <NotFoundViews/>
          </Route>
-      </Switch>
+        </Switch>
+      </Suspense>
       <ToastContainer
           position="bottom-right"
           autoClose={3000}
-    />
+        />
     </Container>
+    
   );
 }
 

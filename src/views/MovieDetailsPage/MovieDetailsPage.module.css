@@ -22,3 +22,21 @@
 .listItem {
   margin-right: 20px;
 }
+
+.link {
+  display: inline-block;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  color: #2a363b;
+}
+
+.activeLink {
+  color: #cf0d3e;
+}
+
+.noDetails {
+  margin-top: 60px;
+  text-align: center;
+}
