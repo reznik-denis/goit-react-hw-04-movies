@@ -12,3 +12,7 @@ export function fetchSearchMovies(search, pageFetch) {
 export function fetchMoviesDetailsViews(movieId) {
     return fetch(`${BASE_URL}/movie/${movieId}?api_key=${KEY}&language=en-US`).then(res => res.json());
 }
+
+export function fetchMoviesCreditsViews(movieId) {
+    return fetch(`${BASE_URL}/movie/${movieId}/credits?api_key=${KEY}&language=en-US`).then(res => res.json());
+}

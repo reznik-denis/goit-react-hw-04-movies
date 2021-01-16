@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMoviesDetailsViews } from "../services/movie-api";
+import { fetchMoviesDetailsViews, fetchMoviesCreditsViews } from "../services/movie-api";
 import s from "./MovieDetailsPage.module.css";
 
 
 export default function MovieDetailsView() {
   const { movieId } = useParams();
-    const [movie, setMovie] = useState(null);
-    const URL_IMG = "https://image.tmdb.org/t/p/w500";
+  const [movie, setMovie] = useState(null);
+  const [credit, setCredit] = useState(null);
+  const URL_IMG = "https://image.tmdb.org/t/p/w500";
 
   useEffect(() => {
     fetchMoviesDetailsViews(movieId).then(movie => setMovie(movie));
+    fetchMoviesCreditsViews(movieId).then(credit => setCredit(credit));
   }, [movieId]);
 
   return (
@@ -29,7 +31,8 @@ export default function MovieDetailsView() {
                   </div>
                     
               </div>
-          </div>}
+        </div>}
+      {/* {movie && movie.map()} */}
     </>
   );
 }
