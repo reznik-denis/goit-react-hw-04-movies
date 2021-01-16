@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import { useState, useRef } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import s from './Movies.module.css';
 import MoviesList from "../MoviesList/MoviesList";
 import { fetchSearchMovies } from "../../services/movie-api";
@@ -11,9 +12,19 @@ export default function Searchbar () {
     const [search, setSearch] = useState('');
     const [movies, setMovies] = useState([]);
 
+    const history = useHistory();
+    const location = useLocation();
+    const refLocation = useRef(location);
+
     const handleChange = event => {
         setSearch(event.currentTarget.value.toLowerCase());
     };
+    
+    const queryUrl = new URLSearchParams(location.search).get('query');
+
+    const onQueryChange = query => {
+        history.push({...location, search:`query=${query}`})
+    }
 
     const fetchMovies = (search, pageFetch=1) => {
         fetchSearchMovies(search, pageFetch).then(movies => setMovies(movies.results))
@@ -26,6 +37,7 @@ export default function Searchbar () {
             return
         }
         fetchMovies(search);
+        onQueryChange(search);
         reset();
     };
 

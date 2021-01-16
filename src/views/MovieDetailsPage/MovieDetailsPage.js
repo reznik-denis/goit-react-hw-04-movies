@@ -1,5 +1,5 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
-import { NavLink, Route, useParams, useRouteMatch } from 'react-router-dom';
+import { useState, useEffect, lazy, Suspense, useRef } from 'react';
+import { NavLink, Route, useParams, useRouteMatch, useHistory, useLocation, } from 'react-router-dom';
 import { fetchMoviesDetailsViews } from "../../services/movie-api";
 import Loader from "../../services/Loader/loader";
 import NoImage from "../../images/noimage.png";
@@ -14,7 +14,13 @@ export default function MovieDetailsView() {
   const [movie, setMovie] = useState(null);
   const [loader, setLoader] = useState(false);
   const [error, setError] = useState(null);
+  const history = useHistory();
+  const location = useLocation();
+   const refLocation = useRef(location);
   const URL_IMG = "https://image.tmdb.org/t/p/w500";
+
+  console.log(history);
+  console.log(location);
 
   useEffect(() => {
     setLoader(true);
@@ -26,6 +32,20 @@ export default function MovieDetailsView() {
     }).catch(error => setError(error)).finally(() => setLoader(false));
   }, [movieId]);
 
+  console.log(refLocation)
+
+ function goBack() {
+    if (refLocation.current.state) {
+      const { pathname, search } = refLocation.current.state.from;
+      history.push(search ? pathname + search : pathname);
+    } else {
+      const path = refLocation.current.pathname.includes('movies')
+        ? '/movies'
+        : '/';
+      history.push(path);
+    }
+  }
+
   return (
     <>
        {loader && <Loader />}
@@ -33,6 +53,7 @@ export default function MovieDetailsView() {
         (<div className={s.flex}>   
               <img src={movie.poster_path ? `${URL_IMG}${movie.poster_path}` : NoImage} className={s.imgStyle} alt={movie.title ?? movie.name} width='400' height='600'/>
           <div>
+            <button type="button" onClick={goBack} className={s.goBack}>Назад</button>
                     <h1 className={s.title}>{movie.title ?? movie.name}</h1>
                     <p>User Score: {movie.vote_average * 10}%</p>
                     <h2>Overview</h2>
