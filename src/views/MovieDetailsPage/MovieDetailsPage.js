@@ -19,9 +19,6 @@ export default function MovieDetailsView() {
    const refLocation = useRef(location);
   const URL_IMG = "https://image.tmdb.org/t/p/w500";
 
-  console.log(history);
-  console.log(location);
-
   useEffect(() => {
     setLoader(true);
     fetchMoviesDetailsViews(movieId).then(movie => {
@@ -31,8 +28,6 @@ export default function MovieDetailsView() {
       return setMovie(movie)
     }).catch(error => setError(error)).finally(() => setLoader(false));
   }, [movieId]);
-
-  console.log(refLocation)
 
  function goBack() {
     if (refLocation.current.state) {
@@ -48,12 +43,12 @@ export default function MovieDetailsView() {
 
   return (
     <>
-       {loader && <Loader />}
+      {loader && <Loader />}
+      <button type="button" onClick={goBack} className={s.goBack}>Назад</button>
        {movie ? 
         (<div className={s.flex}>   
               <img src={movie.poster_path ? `${URL_IMG}${movie.poster_path}` : NoImage} className={s.imgStyle} alt={movie.title ?? movie.name} width='400' height='600'/>
           <div>
-            <button type="button" onClick={goBack} className={s.goBack}>Назад</button>
                     <h1 className={s.title}>{movie.title ?? movie.name}</h1>
                     <p>User Score: {movie.vote_average * 10}%</p>
                     <h2>Overview</h2>
@@ -76,7 +71,7 @@ export default function MovieDetailsView() {
           </Route>
         </Suspense>
           </div>
-        </div>) : (<h2 className={s.noDetails}>No detail information for this film!</h2>)}
+        </div>) : (<h2 className={s.noDetails}>No detail information for this film! {error}</h2>)}
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import Loader from "react-loader-spinner";
 import s from './Loader.module.css';
 
-export default function LoaderSpinner (props) {
+export default function LoaderSpinner () {
     return (<Loader
         className={s.loaderSpinner}
         type="Puff"

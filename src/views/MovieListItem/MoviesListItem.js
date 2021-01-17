@@ -1,7 +1,7 @@
 import s from './MoviesListItem.module.css';
 import React from 'react';
 import NoImage from "../../images/noimage.png";
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 
 export default function MoviesListItem({ userMovieImageURL, altImage }) {
@@ -10,3 +10,8 @@ export default function MoviesListItem({ userMovieImageURL, altImage }) {
         <h3 className={s.titleMovie}>{altImage}</h3>
         </div>);
 }
+
+MoviesListItem.propTypes = {
+    userMovieImageURL: PropTypes.string,
+    altImage: PropTypes.string
+};
